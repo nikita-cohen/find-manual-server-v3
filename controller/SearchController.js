@@ -14,5 +14,18 @@ const searchManualController = async (req, res) => {
     }
 }
 
+const searchEnterManualController = async (req, res) => {
+    const manualName = req.params.name;
+    try {
+        const onlineManualData = await searchService.searchEnterOnlineManual(manualName);
+        const manualData = await searchService.searchEnterManual(manualName);
+        const archiveManualData = await searchService.searchEnterArchiveManual(manualName);
 
-module.exports = {searchManualController}
+        const newDataArray = [...onlineManualData, ...manualData, ...archiveManualData];
+        res.json(newDataArray);
+    } catch (e) {
+        res.json(e)
+    }
+}
+
+module.exports = {searchManualController, searchEnterManualController}

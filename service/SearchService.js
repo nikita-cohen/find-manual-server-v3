@@ -41,4 +41,43 @@ const searchArchiveManual = (word) => {
     })
 }
 
-module.exports = {searchManual, searchOnlineManual, searchArchiveManual}
+const searchEnterManual = (word) => {
+    return new Promise((resolve, reject) => {
+        manualSchema.find({$text: {$search: word}},
+            async (err, data) => {
+                if (err){
+                    reject(err)
+                } else {
+                    resolve(data)
+                }
+            })
+    })
+}
+
+const searchEnterOnlineManual = (word) => {
+    return new Promise((resolve, reject) => {
+        archiveSchema.find({$text: {$search: word}},
+            async (err, data) => {
+                if (err){
+                    reject(err)
+                } else {
+                    resolve(data)
+                }
+            })
+    })
+}
+
+const searchEnterArchiveManual = (word) => {
+    return new Promise((resolve, reject) => {
+        onlineSchema.find({$text: {$search: word}},
+            async (err, data) => {
+                if (err){
+                    reject(err)
+                } else {
+                    resolve(data)
+                }
+            })
+    })
+}
+
+module.exports = {searchManual, searchOnlineManual, searchArchiveManual, searchEnterManual, searchEnterArchiveManual, searchEnterOnlineManual}
